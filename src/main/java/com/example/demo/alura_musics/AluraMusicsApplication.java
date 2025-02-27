@@ -4,6 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.demo.alura_musics.principal.Principal;
+
 @SpringBootApplication
 public class AluraMusicsApplication implements CommandLineRunner {
 
@@ -13,7 +15,9 @@ public class AluraMusicsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Projeto iniciado.");
+		Principal principal = new Principal();
+		
+		principal.exibirMenu();
 		
 	}
 
