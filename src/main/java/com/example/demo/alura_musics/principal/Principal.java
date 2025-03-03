@@ -5,18 +5,23 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.example.demo.alura_musics.model.Artista;
+import com.example.demo.alura_musics.model.Musica;
 import com.example.demo.alura_musics.model.Tipo;
 import com.example.demo.alura_musics.repository.ArtistaRepository;
+import com.example.demo.alura_musics.repository.MusicaRepository;
 
 public class Principal {
 	
 	private ArtistaRepository artistaRepository;
 	
-	public Principal(ArtistaRepository artistaRepository) {
-		this.artistaRepository = artistaRepository;
-	}
-
+	private MusicaRepository musicaRepository;
+	
 	Scanner sc = new Scanner(System.in);
+	
+	public Principal(ArtistaRepository artistaRepository, MusicaRepository musicaRepository) {
+		this.artistaRepository = artistaRepository;
+		this.musicaRepository = musicaRepository;
+	}
 
 	public void exibirMenu() {
 		Integer opcao = -1;
@@ -65,10 +70,31 @@ public class Principal {
 		new Artista(null, "Twenty One Pilots", Tipo.DUPLA)
 		);
 		
-		artistaRepository.saveAll(artistas);
+		List<Artista> dbArtistas = artistaRepository.saveAll(artistas);
+		
+		List<Musica> musicas = Arrays.asList(
+				//Raul Seixas
+				new Musica(null, "O dia em que a terra parou", "O Dia em Que a Terra Parou", dbArtistas.get(0)),
+				new Musica(null, "Eu nasci há 10 mil anos atrás", "Metrô Linha 743", dbArtistas.get(0)),
+				new Musica(null, "Capim Guiné", "A Pedra do Gênesis", dbArtistas.get(0)),
+				
+				// Legião Urbana
+				new Musica(null, "Monte Castelo", "As Quatro Estações", dbArtistas.get(1)),
+				new Musica(null, "Tempo Perdido", "Dois", dbArtistas.get(1)),
+				new Musica(null, "Geração Coca-Cola", "Legião Urbana", dbArtistas.get(1)),
+
+				// Twenty One Pilots
+				new Musica(null, "Ride", "Blurryface", dbArtistas.get(2)),
+				new Musica(null, "The Judge", "Blurryface", dbArtistas.get(2)),
+				new Musica(null, "Shy Away", "Scaled and Icy", dbArtistas.get(2))
+
+				);
+		
+		musicaRepository.saveAll(musicas);
+		
 	}
-	
-	public void cadastrarArtistas() {
+
+	private void cadastrarArtistas() {
 		var opcao = "s";
 		while (!opcao.equalsIgnoreCase("n")) {
 			System.out.println("Digite o nome do artista:");
@@ -105,6 +131,7 @@ public class Principal {
 		}
 		
 	}
+	
 }
 
 
