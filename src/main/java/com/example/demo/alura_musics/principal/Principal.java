@@ -49,7 +49,7 @@ public class Principal {
 				listarMusicas();
 				break;
 			case 4:
-				System.out.println("Para ser implementado!");
+				buscarPorArtista();
 				break;
 			case 5:
 				System.out.println("Para ser implementado!");
@@ -65,6 +65,45 @@ public class Principal {
 		
 	}
 	
+	private void buscarPorArtista() {
+		List<Artista> artistas = artistaRepository.findAll();
+		
+		String opcao = "s";
+		while (!opcao.equalsIgnoreCase("n")) {
+			artistas.forEach(a -> {
+				System.out.println("Artista: " + a.getNome());
+			});
+			System.out.println("Digite o nome do artista desejado: ");
+			String artistaNome = sc.nextLine();
+			
+			List<Musica> buscarMusicas = musicaRepository.findAllByArtistaNomeContainsIgnoreCase(artistaNome);
+			
+			System.out.println();
+			if (!buscarMusicas.isEmpty()) {
+				System.out.println("Músicas de " + buscarMusicas.getFirst().getArtista().getNome() + " encontradas:");
+				buscarMusicas.forEach(m -> {
+					System.out.println("Música: " + m.getNome() + ", álbum: " + m.getAlbum() + ".");
+				});
+			} else {
+				System.out.println("Nenhum artista encontrado.");
+			}
+			
+			System.out.println();
+			System.out.println("Deseja fazer outra busca? (s/n)");
+			opcao = sc.nextLine();
+			
+			while (!opcao.equalsIgnoreCase("s") && !opcao.equalsIgnoreCase("n")) {
+				System.out.println();
+				System.out.println("Opção inválida!");
+				System.out.println("Deseja fazer outra busca? (s/n)");
+				opcao = sc.nextLine();
+			}
+			
+			System.out.println();
+		}
+		
+	}
+
 	private void cadastrarMusicas() {
 		List<Artista> artistas = artistaRepository.findAll();
 		
