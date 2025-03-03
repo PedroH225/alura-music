@@ -1,8 +1,20 @@
 package com.example.demo.alura_musics.principal;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
+import com.example.demo.alura_musics.model.Artista;
+import com.example.demo.alura_musics.model.Tipo;
+import com.example.demo.alura_musics.repository.ArtistaRepository;
+
 public class Principal {
+	
+	private ArtistaRepository artistaRepository;
+	
+	public Principal(ArtistaRepository artistaRepository) {
+		this.artistaRepository = artistaRepository;
+	}
 
 	Scanner sc = new Scanner(System.in);
 
@@ -43,5 +55,21 @@ public class Principal {
 			}
 
 		}
+		
+	}
+	
+	public void registrar() {
+		List<Artista> artistas = Arrays.asList(
+		new Artista(null, "Raul Seixas", Tipo.SOLO),
+		new Artista(null, "Legião Urbana", Tipo.BANDA),
+		new Artista(null, "Twenty One Pilots", Tipo.DUPLA)
+		);
+		
+		artistaRepository.saveAll(artistas);
 	}
 }
+
+
+
+
+
