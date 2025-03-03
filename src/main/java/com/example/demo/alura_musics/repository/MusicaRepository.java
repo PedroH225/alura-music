@@ -9,4 +9,6 @@ import com.example.demo.alura_musics.model.Musica;
 public interface MusicaRepository extends JpaRepository<Musica, String> {
 
 	List<Musica> findAllByArtistaNomeContainsIgnoreCase(String artistaNome);
+	
+	List<Musica> findAllByOrderByArtistaNome();
 }
