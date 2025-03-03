@@ -121,11 +121,9 @@ public class Principal {
 				System.out.println("Artista: " + a.getNome());
 			});
 			System.out.println("Digite o nome do artista desejado: ");
-			String artista = sc.nextLine();
+			String artistaNome = sc.nextLine();
 			
-			Optional<Artista> buscarArtista = artistas.stream()
-					.filter(a -> a.getNome().contains(artista))
-					.findFirst();
+			Optional<Artista> buscarArtista = artistaRepository.findByNomeContainsIgnoreCase(artistaNome);
 			
 			if (buscarArtista.isPresent()) {
 				musicaRepository.save(new Musica(null, nome, album, buscarArtista.get()));
