@@ -24,6 +24,17 @@ public class Musica {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "artista_id")
 	private Artista artista;
+	
+	public Musica() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Musica(String id, String nome, String album, Artista artista) {
+		this.id = id;
+		this.nome = nome;
+		this.album = album;
+		this.artista = artista;
+	}
 
 	public String getId() {
 		return id;
