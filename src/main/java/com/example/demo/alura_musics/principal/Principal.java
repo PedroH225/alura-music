@@ -33,7 +33,7 @@ public class Principal {
 			System.out.println();
 			switch (opcao) {
 			case 1:
-				System.out.println("Para ser implementado!");
+				cadastrarArtistas();
 				break;
 			case 2:
 				System.out.println("Para ser implementado!");
@@ -66,6 +66,44 @@ public class Principal {
 		);
 		
 		artistaRepository.saveAll(artistas);
+	}
+	
+	public void cadastrarArtistas() {
+		var opcao = "s";
+		while (!opcao.equalsIgnoreCase("n")) {
+			System.out.println("Digite o nome do artista:");
+			var nome = sc.nextLine();
+			
+			System.out.println();
+			System.out.println("Digite o tipo do artista(solo/dupla/banda):");
+			var tipo = sc.nextLine();
+			
+			System.out.println();
+			
+			try {
+				Artista novoArtista = new Artista(null, nome, Tipo.fromString(tipo));
+				System.out.println("Artista adicionado com sucesso!");
+				System.out.println();
+				
+				artistaRepository.save(novoArtista);
+				
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				System.out.println();
+			}
+			
+			System.out.println("Deseja adicionar outro artista? (s/n)");
+			opcao = sc.nextLine();
+			
+			while (!opcao.equalsIgnoreCase("s") && !opcao.equalsIgnoreCase("n")) {
+				System.out.println("Opção inválida!");
+				System.out.println();
+				
+				System.out.println("Deseja adicionar outro artista? (s/n)");
+				opcao = sc.nextLine();
+			}
+		}
+		
 	}
 }
 
