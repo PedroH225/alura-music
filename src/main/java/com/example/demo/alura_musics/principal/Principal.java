@@ -151,7 +151,7 @@ public class Principal {
 	}
 
 	private void listarMusicas() {
-		List<Musica> musicas = musicaRepository.findAll();
+		List<Musica> musicas = musicaRepository.findAllByOrderByArtistaNome();
 		
 		if (!musicas.isEmpty()) {
 			System.out.println("Músicas registradas:");
