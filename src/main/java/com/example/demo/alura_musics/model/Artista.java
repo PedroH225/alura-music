@@ -32,10 +32,10 @@ public class Artista {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Artista(String id, String nome) {
-		super();
+	public Artista(String id, String nome, Tipo tipo) {
 		this.id = id;
 		this.nome = nome;
+		this.tipo = tipo;
 	}
 
 	public String getId() {
