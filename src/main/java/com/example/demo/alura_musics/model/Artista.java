@@ -14,12 +14,12 @@ public class Artista {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	public String id;
+	private String id;
 	
-	public String nome;
+	private String nome;
 	
 	@Enumerated(EnumType.STRING)
-	public Tipo tipo;
+	private Tipo tipo;
 	
 	public Artista() {
 		// TODO Auto-generated constructor stub
