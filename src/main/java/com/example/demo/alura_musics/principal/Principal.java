@@ -44,7 +44,7 @@ public class Principal {
 				System.out.println("Para ser implementado!");
 				break;
 			case 3:
-				System.out.println("Para ser implementado!");
+				listarMusicas();
 				break;
 			case 4:
 				System.out.println("Para ser implementado!");
@@ -63,6 +63,19 @@ public class Principal {
 		
 	}
 	
+	private void listarMusicas() {
+		List<Musica> musicas = musicaRepository.findAll();
+		
+		if (!musicas.isEmpty()) {
+			System.out.println("Músicas registradas:");
+			musicas.forEach(System.out::println);
+
+		} else {
+			System.out.println("Nenhuma música registrada.");
+		}
+		
+	}
+
 	public void registrar() {
 		List<Artista> artistas = Arrays.asList(
 		new Artista(null, "Raul Seixas", Tipo.SOLO),
