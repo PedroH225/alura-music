@@ -1,11 +1,15 @@
 package com.example.demo.alura_musics.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +24,9 @@ public class Artista {
 	
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
+	
+	@OneToMany(mappedBy = "artista", fetch = FetchType.EAGER)
+	private List<Musica> musicas;
 	
 	public Artista() {
 		// TODO Auto-generated constructor stub
