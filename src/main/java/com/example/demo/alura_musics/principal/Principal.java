@@ -2,7 +2,9 @@ package com.example.demo.alura_musics.principal;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.example.demo.alura_musics.model.Artista;
 import com.example.demo.alura_musics.model.Musica;
@@ -41,7 +43,7 @@ public class Principal {
 				cadastrarArtistas();
 				break;
 			case 2:
-				System.out.println("Para ser implementado!");
+				cadastrarMusicas();
 				break;
 			case 3:
 				listarMusicas();
@@ -63,6 +65,54 @@ public class Principal {
 		
 	}
 	
+	private void cadastrarMusicas() {
+		List<Artista> artistas = artistaRepository.findAll();
+		
+		String opcao = "s";
+		while (!opcao.equals("n")) {
+			System.out.println("Digite o nome da música:");
+			String nome = sc.nextLine();
+			
+			System.out.println();
+			System.out.println("Digite o álbum da música:");
+			String album = sc.nextLine();
+			
+			System.out.println();
+			artistas.forEach(a -> {
+				System.out.println("Artista: " + a.getNome());
+			});
+			System.out.println("Digite o nome do artista desejado: ");
+			String artista = sc.nextLine();
+			
+			Optional<Artista> buscarArtista = artistas.stream()
+					.filter(a -> a.getNome().contains(artista))
+					.findFirst();
+			
+			if (buscarArtista.isPresent()) {
+				musicaRepository.save(new Musica(null, nome, album, buscarArtista.get()));
+				
+				System.out.println();
+				System.out.println("Música cadastrada com sucesso!");
+			} else {
+				System.out.println("Nenhum artista encontrado!");
+			}
+			System.out.println();
+			
+			System.out.println("Deseja adicionar outra música? (s/n)");
+			opcao = sc.nextLine();
+			
+			while (!opcao.equalsIgnoreCase("s") && !opcao.equalsIgnoreCase("n")) {
+				System.out.println();
+				System.out.println("Opção inválida!");
+				System.out.println("Deseja adicionar outra música? (s/n)");
+				opcao = sc.nextLine();
+			}
+			
+			System.out.println();
+		}
+		
+	}
+
 	private void listarMusicas() {
 		List<Musica> musicas = musicaRepository.findAll();
 		
